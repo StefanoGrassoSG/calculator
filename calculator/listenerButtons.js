@@ -20,8 +20,8 @@ document.getElementById('1').addEventListener('click', function() {
         const secondDiv = document.createElement('div');
         secondDiv.textContent = secondValue;
         document.getElementById('calc').append(secondDiv);
-        console.log('il secondo valore è' + secondValue)
         update()
+        console.log('il secondo valore' + secondValue)
     }
     else {
         console.log(value)
@@ -151,12 +151,17 @@ document.getElementById('2').addEventListener('click', function() {
     clear()
   })
 
+  document.getElementById('=').addEventListener('click', function() {
+    sum()
+  })
+
+  
+
   function update() {
     if(value != null) {
         document.getElementById('calc').textContent = value;
     }
     if(secondValue != '') {
-        document.getElementById('calc').innerHTML = '';
         document.getElementById('calc').textContent = secondValue;
     }
   }
@@ -168,3 +173,16 @@ document.getElementById('2').addEventListener('click', function() {
         inputs = [];
     }
   }
+
+  function sum() {
+    inputs.push(secondValue)
+    console.log(inputs)
+    let total = '0';
+    for (let index = 0; index < inputs.length; index++) {
+       let nmb = parseInt(inputs[index]);
+        total = nmb + nmb
+    }
+    document.getElementById('calc').innerHTML = total;
+
+    console.log('la somma è' + total)
+  } 

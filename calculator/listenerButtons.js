@@ -2,6 +2,8 @@ let value = '';
 let secondValue = '';
 let inputs = [];
 let checkCalc = null;
+let roots = null;
+let square = null;
 
 if (value === '') {
     document.getElementById('calc').textContent = '0';
@@ -301,6 +303,16 @@ document.getElementById('1').addEventListener('click', function() {
   })
 
   
+  document.getElementById('√x').addEventListener('click', function() {
+    qdrt()
+  })
+
+  
+  document.getElementById('x2').addEventListener('click', function() {
+    squareCalc()
+  })
+
+  
 
   function update() {
     if(value != null) {
@@ -379,3 +391,38 @@ document.getElementById('1').addEventListener('click', function() {
     console.log('la moltiplciazione è' + foramttedNumber)
     document.getElementById('calc').innerHTML = foramttedNumber;
   }
+
+  function qdrt() {
+    roots = value;
+    const root = Math.sqrt(roots)
+    console.log(root, typeof root)
+    console.log(hasDecimalPlaces(root))
+    let final = root.toFixed(1)
+    if(hasDecimalPlaces(root) == true) {
+      document.getElementById('calc').innerHTML = final
+    }
+    else {
+        document.getElementById('calc').innerHTML = root
+    }
+    
+  }
+
+  function squareCalc() {
+    let square = value;
+    let result = value * value
+    function formatNumber() {
+        if(result >= 1000) {
+            return result.toLocaleString();
+        } 
+        else {
+            return result.toString();
+        }   
+    }
+    const formatted = formatNumber()
+    document.getElementById('calc').innerHTML = formatted;
+  }
+
+  function hasDecimalPlaces(number) {
+    return (number % 1) !== 0;
+  }
+  

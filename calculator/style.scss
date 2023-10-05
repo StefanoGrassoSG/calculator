@@ -57,12 +57,17 @@
       }
 
       .icons >* {
-        margin-left: 17px;
-        padding: 10px;
+        margin-left: 12px;
+        padding: 10px 15px;
         cursor: pointer;
 
         &:hover {
-          background-color: white;
+          background-color: lightgrey;
+
+          &.fa-xmark:hover {
+            background-color: red;
+            border-top-right-radius: 7px;
+          }
         }
       }
     }

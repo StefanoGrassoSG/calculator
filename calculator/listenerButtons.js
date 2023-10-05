@@ -7,6 +7,31 @@ if (value === '') {
     document.getElementById('calc').textContent = '0';
 }
 
+document.getElementById('0').addEventListener('click', function() {
+    if (value === '0') {
+        value = '0';
+    } else {
+        value += '0';
+    }
+
+    if (inputs.length > 0) {
+        value = null;
+        secondValue += '0';
+        const secondDiv = document.createElement('div');
+        secondDiv.textContent = secondValue;
+        document.getElementById('calc').append(secondDiv);
+        update()
+        console.log('il secondo valore' + secondValue)
+    }
+    else {
+        console.log(value + 'questo è il primo input per il calcolo')
+        const div = document.createElement('div');
+        div.textContent = "0";
+        document.getElementById('calc').appendChild(div);
+        update()
+    } 
+   
+  });
 
 document.getElementById('1').addEventListener('click', function() {
     if (value === '0') {
@@ -25,7 +50,7 @@ document.getElementById('1').addEventListener('click', function() {
         console.log('il secondo valore' + secondValue)
     }
     else {
-        console.log(value)
+        console.log(value + 'questo è il primo input per il calcolo')
         const div = document.createElement('div');
         div.textContent = "1";
         document.getElementById('calc').appendChild(div);
@@ -279,7 +304,7 @@ document.getElementById('1').addEventListener('click', function() {
 
   function update() {
     if(value != null) {
-        document.getElementById('calc').textContent = value;
+       document.getElementById('calc').textContent = value;
     }
     if(secondValue != '') {
         document.getElementById('calc').textContent = secondValue;
@@ -302,8 +327,23 @@ document.getElementById('1').addEventListener('click', function() {
        let nmb = parseInt(inputs[index]);
         total += nmb 
     }
-    document.getElementById('calc').innerHTML = total;
-    document.getElementById('input').textContent = inputs[0] + '' + '+' + secondValue + '=';
+
+    
+    function formatNumber() {
+        if(total >= 1000) {
+            return total.toLocaleString();
+        }    
+        else {
+            return total.toString();
+        }
+    }
+
+    const foramttedNumber = formatNumber()
+    console.log('l addizzione  è' + foramttedNumber)
+    document.getElementById('calc').innerHTML = foramttedNumber;
+    
+    document.getElementById('calc').innerHTML = foramttedNumber;
+    document.getElementById('input').textContent = inputs[0] + ' + ' + secondValue + ' = ';
     value = '',
     secondValue = ''
     inputs = [];
@@ -320,12 +360,22 @@ document.getElementById('1').addEventListener('click', function() {
        let nmb = parseInt(inputs[index]);
         total *= nmb 
     }
-    document.getElementById('calc').innerHTML = total;
-    document.getElementById('input').textContent = inputs[0] + '' + 'x' + secondValue + '=';
+    document.getElementById('input').textContent = inputs[0] + ' x ' + secondValue + ' = ';
+
     value = '',
     secondValue = ''
     inputs = [];
-    
 
-    console.log('la moltiplciazione è' + total)
+    function formatNumber() {
+        if(total >= 1000) {
+            return total.toLocaleString();
+        } 
+        else {
+            return total.toString();
+        }   
+    }
+
+    const foramttedNumber = formatNumber()
+    console.log('la moltiplciazione è' + foramttedNumber)
+    document.getElementById('calc').innerHTML = foramttedNumber;
   }

@@ -1,4 +1,6 @@
 let value = '';
+let secondValue = '';
+let inputs = [];
 
 if (value === '') {
     document.getElementById('calc').textContent = '0';
@@ -11,11 +13,24 @@ document.getElementById('1').addEventListener('click', function() {
     } else {
         value += '1';
     }
-    console.log(value)
-    const div = document.createElement('div');
-    div.textContent = "1";
-    document.getElementById('calc').appendChild(div);
-    update()
+
+    if (inputs.length > 0) {
+        value = null;
+        secondValue += '1';
+        const secondDiv = document.createElement('div');
+        secondDiv.textContent = secondValue;
+        document.getElementById('calc').append(secondDiv);
+        console.log('il secondo valore è' + secondValue)
+        update()
+    }
+    else {
+        console.log(value)
+        const div = document.createElement('div');
+        div.textContent = "1";
+        document.getElementById('calc').appendChild(div);
+        update()
+    } 
+   
   });
 
   
@@ -123,6 +138,13 @@ document.getElementById('2').addEventListener('click', function() {
     update()
   });
 
+  document.getElementById('+').addEventListener('click', function() {
+    let firstInput = value;
+    document.getElementById('input').textContent = firstInput + '' + '+';
+    inputs.push(firstInput);
+    console.log(inputs)
+  })
+
 
   document.getElementById('C').addEventListener('click', function() {
     value = '0'
@@ -130,11 +152,19 @@ document.getElementById('2').addEventListener('click', function() {
   })
 
   function update() {
-    document.getElementById('calc').textContent = value;
+    if(value != null) {
+        document.getElementById('calc').textContent = value;
+    }
+    if(secondValue != '') {
+        document.getElementById('calc').innerHTML = '';
+        document.getElementById('calc').textContent = secondValue;
+    }
   }
 
   function clear() {
     if (value != '') {
         document.getElementById('calc').textContent = '0';
+        document.getElementById('input').textContent = '';
+        inputs = [];
     }
   }

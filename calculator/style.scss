@@ -30,9 +30,17 @@
         position: absolute;
         top: 50%;
         right: 5%;
-        font-size: 50px;
+        font-size: 70px;
         font-weight: bold;
         display: flex;
+      }
+
+      .sum {
+        position: absolute;
+        right: 5%;
+        top: 30%;
+        font-size: 30px;
+        color: grey;
       }
     }
 

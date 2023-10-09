@@ -6,7 +6,8 @@ let calcsArray = [];
 let checkCalc = null;
 let roots = null;
 let square = null;
-let calcComplete = false
+let calcComplete = false;
+let dump = false;
 
 const numericButtons = document.querySelectorAll('.button-numeric');
 const operatorButtons = document.querySelectorAll('.operator');
@@ -36,21 +37,21 @@ operatorButtons.forEach(button => {
 //CALCS SECTION
 ////////////////////////////////////////////////////////////////////
 calc.addEventListener('click', function() {
-    calcsArray.push(parseInt(firstInput[firstInput.length - 1]))
-    calcsArray.push(parseInt(secondInput[secondInput.length - 1]))
-    console.log(calcsArray)
+    console.log('numeri da operare mell array', calcsArray)
+    console.log('risultato finale dei due array', sumArray(calcsArray))
+    if(calcsArray[calcsArray.length - 1] == firstInput[firstInput.length - 1]) {
+        input.textContent = firstInput[firstInput.length - 1] + ' ' + '='
+        calcComplete = true
+    }
     if(checkCalc == '+') {
         esteticResult.innerHTML = sumArray(calcsArray)
-        calc.textContent = firstInput[firstInput.length - 1] + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
-        value = '';
-        secondValue = '';
-        firstInput = [];
-        secondInput = [];
-        checkCalc = null;
-        roots = null;
-        square = null;
+        input.textContent = firstInput[firstInput.length - 1] + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
+        reset()
         calcComplete = true
-        console.log(sumArray(calcsArray))
+        if(sumArray(calcsArray) != 0) {
+            console.log(sumArray(calcsArray))
+        }
+       
     }
 })
 ////////////////////////////////////////////////////////////////////
@@ -64,7 +65,10 @@ function addDigitNumber(numb) {
     }
 
     if(calcComplete) {
-        input.innerHTML = ''
+       
+        calcComplete = false
+        reset()
+        value = numb;
     }
 
     if (firstInput.length > 0 && checkCalc != null) {
@@ -76,6 +80,10 @@ function addDigitNumber(numb) {
         update()
         console.log('questo è il secondo input per il calcolo' + secondInput)
         console.log(secondInput)
+        if(secondInput.length != 0) {
+            calcsArray.push(parseInt(secondInput[secondInput.length - 1]))
+        }
+        console.log(secondValue + 'questo è il secondo input per il calcolo messo nell array per il calcolo effettivo')
     }
     else {
         const div = document.createElement('div');
@@ -85,6 +93,10 @@ function addDigitNumber(numb) {
         update()
         console.log(value + 'questo è il primo input per il calcolo')
         console.log(firstInput)
+        if(firstInput.length != 0) {
+            calcsArray.push(parseInt(firstInput[firstInput.length - 1]))
+        }
+        console.log(value + 'questo è il primo input per il calcolo messo nell array per il calcolo effettivo')
         
     } 
 }
@@ -94,7 +106,6 @@ function addDigitNumber(numb) {
 function addOperator(operator) {
     if(operator != '=' && operator != 'C') {
         checkCalc = operator
-        console.log('questo è il primo valore da operare', calcsArray)
         console.log('opeartore utilizzato', operator)
         if(firstInput.length == 0) {
             firstInput.push('0')
@@ -104,14 +115,7 @@ function addOperator(operator) {
     }
 
     if(operator == 'C') {
-        value = '';
-        secondValue = '';
-        firstInput = [];
-        secondInput = [];
-        calcsArray = [];
-        checkCalc = null;
-        roots = null;
-        square = null;
+        reset()
         calcComplete = false
         input.innerHTML = ''
         esteticResult.innerHTML = ''
@@ -130,6 +134,19 @@ function update() {
     if(secondValue != '') {
         esteticResult.textContent = secondValue;
     }
+}
+////////////////////////////////////////////////////////////////////
+//RESET FUNCTION
+////////////////////////////////////////////////////////////////////
+function reset() {
+     value = '';
+     secondValue = '';
+     firstInput = [];
+     secondInput = [];
+     calcsArray = [];
+     checkCalc = null;
+     roots = null;
+     square = null;
 }
 ////////////////////////////////////////////////////////////////////
 //CALCS FUNCTIONS

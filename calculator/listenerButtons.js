@@ -1,428 +1,138 @@
 let value = '';
 let secondValue = '';
-let inputs = [];
+let firstInput = [];
+let secondInput = [];
+let calcsArray = [];
 let checkCalc = null;
 let roots = null;
 let square = null;
+let calcComplete = false
+
+const numericButtons = document.querySelectorAll('.button-numeric');
+const operatorButtons = document.querySelectorAll('.operator');
+const calc = document.getElementById('=')
+const input = document.getElementById('input')
+
 
 if (value === '') {
     document.getElementById('calc').textContent = '0';
 }
 
-document.getElementById('0').addEventListener('click', function() {
+numericButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const numb = button.textContent;
+        addDigitNumber(numb);
+    });
+});
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const operator = button.id;
+        addOperator(operator);
+    });
+});
+////////////////////////////////////////////////////////////////////
+//CALCS SECTION
+////////////////////////////////////////////////////////////////////
+calc.addEventListener('click', function() {
+    calcsArray.push(parseInt(firstInput[firstInput.length - 1]))
+    calcsArray.push(parseInt(secondInput[secondInput.length - 1]))
+    console.log(calcsArray)
+    if(checkCalc == '+') {
+        document.getElementById('calc').innerHTML = sumArray(calcsArray)
+        document.getElementById('input').textContent = firstInput[firstInput.length - 1] + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
+        value = '';
+        secondValue = '';
+        firstInput = [];
+        secondInput = [];
+        checkCalc = null;
+        roots = null;
+        square = null;
+        calcComplete = true
+        console.log(sumArray(calcsArray))
+    }
+})
+////////////////////////////////////////////////////////////////////
+//FUNCTION FOR ADD NUMBERS
+////////////////////////////////////////////////////////////////////
+function addDigitNumber(numb) {
     if (value === '0') {
-        value = '0';
+        value = numb;
     } else {
-        value += '0';
+        value += numb;
     }
 
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '0';
+    if(calcComplete) {
+        input.innerHTML = ''
+    }
+
+    if (firstInput.length > 0 && checkCalc != null) {
+        secondValue += numb;
         const secondDiv = document.createElement('div');
         secondDiv.textContent = secondValue;
         document.getElementById('calc').append(secondDiv);
+        secondInput.push(secondValue)
         update()
-        console.log('il secondo valore' + secondValue)
+        console.log('questo è il secondo input per il calcolo' + secondInput)
+        console.log(secondInput)
     }
     else {
+        const div = document.createElement('div');
+        div.textContent = numb;
+        document.getElementById('calc').appendChild(div);
+        firstInput.push(value)
+        update()
         console.log(value + 'questo è il primo input per il calcolo')
-        const div = document.createElement('div');
-        div.textContent = "0";
-        document.getElementById('calc').appendChild(div);
-        update()
+        console.log(firstInput)
+        
     } 
-   
-  });
-
-document.getElementById('1').addEventListener('click', function() {
-    if (value === '0') {
-        value = '1';
-    } else {
-        value += '1';
+}
+////////////////////////////////////////////////////////////////////
+//FUNCTION FOR ADD OPERATORS
+////////////////////////////////////////////////////////////////////
+function addOperator(operator) {
+    if(operator != '=') {
+        checkCalc = operator
+        console.log('questo è il primo valore da operare', calcsArray)
+        console.log('opeartore utilizzato', operator)
+        if(firstInput.length == 0) {
+            firstInput.push('0')
+        }
+        input.textContent = firstInput.length > 0 ? firstInput[firstInput.length - 1] + ' ' + operator : '0 ' + operator;
+        console.log(firstInput);
     }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '1';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value + 'questo è il primo input per il calcolo')
-        const div = document.createElement('div');
-        div.textContent = "1";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  
-  document.getElementById('2').addEventListener('click', function() {
-    if (value === '0') {
-        value = '2';
-    } else {
-        value += '2';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '2';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "2";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-  
-  document.getElementById('3').addEventListener('click', function() {
-    if (value === '0') {
-        value = '3';
-    } else {
-        value += '3';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '3';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "3";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('4').addEventListener('click', function() {
-    if (value === '0') {
-        value = '4';
-    } else {
-        value += '4';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '4';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "4";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('5').addEventListener('click', function() {
-    if (value === '0') {
-        value = '5';
-    } else {
-        value += '5';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '5';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "5";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('6').addEventListener('click', function() {
-    if (value === '0') {
-        value = '6';
-    } else {
-        value += '6';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '6';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "6";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('7').addEventListener('click', function() {
-    if (value === '0') {
-        value = '7';
-    } else {
-        value += '7';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '7';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "7";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('8').addEventListener('click', function() {
-    if (value === '0') {
-        value = '8';
-    } else {
-        value += '8';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '8';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "8";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('9').addEventListener('click', function() {
-    if (value === '0') {
-        value = '9';
-    } else {
-        value += '9';
-    }
-
-    if (inputs.length > 0) {
-        value = null;
-        secondValue += '9';
-        const secondDiv = document.createElement('div');
-        secondDiv.textContent = secondValue;
-        document.getElementById('calc').append(secondDiv);
-        update()
-        console.log('il secondo valore' + secondValue)
-    }
-    else {
-        console.log(value)
-        const div = document.createElement('div');
-        div.textContent = "9";
-        document.getElementById('calc').appendChild(div);
-        update()
-    } 
-   
-  });
-
-  document.getElementById('+').addEventListener('click', function() {
-    let firstInput = value;
-    checkCalc = 'sum';
-    document.getElementById('input').textContent = firstInput + '' + '+';
-    inputs.push(firstInput);
-    console.log(inputs)
-  })
-
-  document.getElementById('X').addEventListener('click', function() {
-    let firstInput = value;
-    checkCalc = 'multy';
-    document.getElementById('input').textContent = firstInput + '' + 'x';
-    inputs.push(firstInput);
-    console.log(inputs)
-  })
-
-
-  document.getElementById('C').addEventListener('click', function() {
-    value = '0'
-    clear()
-  })
-
-  document.getElementById('=').addEventListener('click', function() {
-    if(checkCalc == 'sum') {
-        sum()
-    }
-    if(checkCalc == 'multy') {
-        multiply()
-    }
-    
-  })
-
-  
-  document.getElementById('√x').addEventListener('click', function() {
-    qdrt()
-  })
-
-  
-  document.getElementById('x2').addEventListener('click', function() {
-    squareCalc()
-  })
-
-  
-
-  function update() {
+}
+////////////////////////////////////////////////////////////////////
+//UPDATE FUNCTION
+////////////////////////////////////////////////////////////////////
+function update() {
     if(value != null) {
        document.getElementById('calc').textContent = value;
     }
     if(secondValue != '') {
         document.getElementById('calc').textContent = secondValue;
     }
-  }
-
-  function clear() {
-    if (value != '') {
-        document.getElementById('calc').textContent = '0';
-        document.getElementById('input').textContent = '';
-        inputs = [];
-    }
-  }
-
-  function sum() {
-    inputs.push(secondValue)
-    console.log(inputs)
+}
+////////////////////////////////////////////////////////////////////
+//CALCS FUNCTIONS
+////////////////////////////////////////////////////////////////////
+function sumArray(arr) {
     let total = 0;
-    for (let index = 0; index < inputs.length; index++) {
-       let nmb = parseInt(inputs[index]);
-        total += nmb 
-    }
-
-    
-    function formatNumber() {
-        if(total >= 1000) {
-            return total.toLocaleString();
-        }    
-        else {
-            return total.toString();
+    for (let i = 0; i < arr.length; i++) {
+        const number = parseFloat(arr[i]); // Converte l'elemento in un numero
+        if (!isNaN(number)) { // Verifica se è un numero valido
+            total += number;
         }
     }
+    return total;
+}
 
-    const foramttedNumber = formatNumber()
-    console.log('l addizzione  è' + foramttedNumber)
-    document.getElementById('calc').innerHTML = foramttedNumber;
-    
-    document.getElementById('calc').innerHTML = foramttedNumber;
-    document.getElementById('input').textContent = inputs[0] + ' + ' + secondValue + ' = ';
-    value = '',
-    secondValue = ''
-    inputs = [];
-    
 
-    console.log('la somma è' + total)
-  } 
 
-  function multiply() {
-    inputs.push(secondValue)
-    console.log(inputs)
-    let total = 1;
-    for (let index = 0; index < inputs.length; index++) {
-       let nmb = parseInt(inputs[index]);
-        total *= nmb 
-    }
-    document.getElementById('input').textContent = inputs[0] + ' x ' + secondValue + ' = ';
 
-    value = '',
-    secondValue = ''
-    inputs = [];
 
-    function formatNumber() {
-        if(total >= 1000) {
-            return total.toLocaleString();
-        } 
-        else {
-            return total.toString();
-        }   
-    }
 
-    const foramttedNumber = formatNumber()
-    console.log('la moltiplciazione è' + foramttedNumber)
-    document.getElementById('calc').innerHTML = foramttedNumber;
-  }
 
-  function qdrt() {
-    roots = value;
-    const root = Math.sqrt(roots)
-    console.log(root, typeof root)
-    console.log(hasDecimalPlaces(root))
-    let final = root.toFixed(1)
-    if(hasDecimalPlaces(root) == true) {
-      document.getElementById('calc').innerHTML = final
-    }
-    else {
-        document.getElementById('calc').innerHTML = root
-    }
-    
-  }
 
-  function squareCalc() {
-    let square = value;
-    let result = value * value
-    function formatNumber() {
-        if(result >= 1000) {
-            return result.toLocaleString();
-        } 
-        else {
-            return result.toString();
-        }   
-    }
-    const formatted = formatNumber()
-    document.getElementById('calc').innerHTML = formatted;
-  }
 
-  function hasDecimalPlaces(number) {
-    return (number % 1) !== 0;
-  }
-  
+ 

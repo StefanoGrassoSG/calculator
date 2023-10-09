@@ -57,7 +57,6 @@
       }
 
       .icons >* {
-        margin-left: 12px;
         padding: 10px 15px;
         cursor: pointer;
 
@@ -65,7 +64,7 @@
           background-color: lightgrey;
 
           &.fa-xmark:hover {
-            background-color: red;
+            background-color: darkred;
             border-top-right-radius: 7px;
           }
         }

@@ -55,7 +55,7 @@ calc.addEventListener('click', function() {
     }
 })
 ////////////////////////////////////////////////////////////////////
-//FUNCTION FOR ADD NUMBERS
+//FUNCTION FOR ADD NUMBERS VALUES
 ////////////////////////////////////////////////////////////////////
 function addDigitNumber(numb) {
     if (value === '0') {
@@ -149,13 +149,13 @@ function reset() {
      square = null;
 }
 ////////////////////////////////////////////////////////////////////
-//CALCS FUNCTIONS
+//TYPES  OF CALCS  FUNCTIONS
 ////////////////////////////////////////////////////////////////////
 function sumArray(arr) {
     let total = 0;
     for (let i = 0; i < arr.length; i++) {
-        const number = parseFloat(arr[i]); // Converte l'elemento in un numero
-        if (!isNaN(number)) { // Verifica se è un numero valido
+        const number = parseFloat(arr[i]); 
+        if (!isNaN(number)) {
             total += number;
         }
     }

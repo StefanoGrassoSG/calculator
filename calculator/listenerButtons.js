@@ -39,14 +39,15 @@ operatorButtons.forEach(button => {
 calc.addEventListener('click', function() {
     console.log('numeri da operare mell array', calcsArray)
     console.log('risultato finale dei due array', sumArray(calcsArray))
-    if(calcsArray[calcsArray.length - 1] == firstInput[firstInput.length - 1]) {
+    if(firstInput.length > 0 && secondInput.length == 0) {
         input.textContent = firstInput[firstInput.length - 1] + ' ' + '='
         calcComplete = true
     }
+
     if(checkCalc == '+') {
+        calcsArray.push(firstInput[firstInput.length - 1])
         esteticResult.innerHTML = sumArray(calcsArray)
         input.textContent = firstInput[firstInput.length - 1] + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
-        reset()
         calcComplete = true
         if(sumArray(calcsArray) != 0) {
             console.log(sumArray(calcsArray))
@@ -63,9 +64,13 @@ function addDigitNumber(numb) {
     } else {
         value += numb;
     }
-
+    if(calcComplete && checkCalc != null) {
+        input.innerHTML = ''
+        calcComplete = false
+        reset()
+        value = numb;
+    }
     if(calcComplete) {
-       
         calcComplete = false
         reset()
         value = numb;
@@ -79,7 +84,7 @@ function addDigitNumber(numb) {
         secondInput.push(secondValue)
         update()
         console.log('questo è il secondo input per il calcolo' + secondInput)
-        console.log(secondInput)
+        console.log(secondInput, ' ', 'queto è il secondo input nell array seondinput')
         if(secondInput.length != 0) {
             calcsArray.push(parseInt(secondInput[secondInput.length - 1]))
         }
@@ -92,8 +97,9 @@ function addDigitNumber(numb) {
         firstInput.push(value)
         update()
         console.log(value + 'questo è il primo input per il calcolo')
-        console.log(firstInput)
-        if(firstInput.length != 0) {
+        console.log(firstInput, 'stato array fisrt input')
+        console.log('stato dell array finale', calcsArray)
+        if(firstInput.length != 0 && checkCalc != null) {
             calcsArray.push(parseInt(firstInput[firstInput.length - 1]))
         }
         console.log(value + 'questo è il primo input per il calcolo messo nell array per il calcolo effettivo')
@@ -111,7 +117,7 @@ function addOperator(operator) {
             firstInput.push('0')
         }
         input.textContent = firstInput.length > 0 ? firstInput[firstInput.length - 1] + ' ' + operator : '0 ' + operator;
-        console.log(firstInput);
+        console.log(firstInput, ' ', 'questo è ilprimo input nell array firstinput');
     }
 
     if(operator == 'C') {

@@ -7,13 +7,15 @@ let checkCalc = null;
 let roots = null;
 let square = null;
 let calcComplete = false;
-let dump = false;
+let repeat = false;
+let same = false;
 
 const numericButtons = document.querySelectorAll('.button-numeric');
 const operatorButtons = document.querySelectorAll('.operator');
 const calc = document.getElementById('=')
 const input = document.getElementById('input')
 const esteticResult = document.getElementById('calc')
+
 
 
 if (value === '') {
@@ -33,25 +35,33 @@ operatorButtons.forEach(button => {
         addOperator(operator);
     });
 });
+
 ////////////////////////////////////////////////////////////////////
 //CALCS SECTION
 ////////////////////////////////////////////////////////////////////
 calc.addEventListener('click', function() {
-    console.log('numeri da operare mell array', calcsArray)
-    console.log('risultato finale dei due array', sumArray(calcsArray))
     if(firstInput.length > 0 && secondInput.length == 0) {
+        same = true;
+        calcComplete = true;
         input.textContent = firstInput[firstInput.length - 1] + ' ' + '='
-        calcComplete = true
     }
 
-    if(checkCalc == '+') {
+    if(calcComplete == true && same == false) {
+        repeat = true;
+        calcsArray.push(calcsArray[0])
+        esteticResult.innerHTML = sumArray(calcsArray)
+        input.textContent = (sumArray(calcsArray) - secondInput[secondInput.length - 1]) + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
+        console.log(calcsArray, 'porco dio')
+    }
+
+    if(checkCalc == '+' && repeat !=true) {
+        calcsArray.push(secondInput[secondInput.length - 1])
         calcsArray.push(firstInput[firstInput.length - 1])
+        console.log('stato attuale calcsarray', calcsArray)
+        console.log('stato attuale same', same)
         esteticResult.innerHTML = sumArray(calcsArray)
         input.textContent = firstInput[firstInput.length - 1] + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
         calcComplete = true
-        if(sumArray(calcsArray) != 0) {
-            console.log(sumArray(calcsArray))
-        }
        
     }
 })
@@ -64,12 +74,14 @@ function addDigitNumber(numb) {
     } else {
         value += numb;
     }
+
     if(calcComplete && checkCalc != null) {
         input.innerHTML = ''
         calcComplete = false
         reset()
         value = numb;
     }
+
     if(calcComplete) {
         calcComplete = false
         reset()
@@ -83,12 +95,8 @@ function addDigitNumber(numb) {
         esteticResult.append(secondDiv);
         secondInput.push(secondValue)
         update()
-        console.log('questo è il secondo input per il calcolo' + secondInput)
-        console.log(secondInput, ' ', 'queto è il secondo input nell array seondinput')
-        if(secondInput.length != 0) {
-            calcsArray.push(parseInt(secondInput[secondInput.length - 1]))
-        }
-        console.log(secondValue + 'questo è il secondo input per il calcolo messo nell array per il calcolo effettivo')
+        console.log('stato attuale secondinput', secondInput)
+        console.log('stato dell array finale', calcsArray)
     }
     else {
         const div = document.createElement('div');
@@ -96,14 +104,11 @@ function addDigitNumber(numb) {
         esteticResult.appendChild(div);
         firstInput.push(value)
         update()
-        console.log(value + 'questo è il primo input per il calcolo')
-        console.log(firstInput, 'stato array fisrt input')
+        console.log(firstInput, 'stato array first input')
         console.log('stato dell array finale', calcsArray)
         if(firstInput.length != 0 && checkCalc != null) {
             calcsArray.push(parseInt(firstInput[firstInput.length - 1]))
         }
-        console.log(value + 'questo è il primo input per il calcolo messo nell array per il calcolo effettivo')
-        
     } 
 }
 ////////////////////////////////////////////////////////////////////
@@ -113,11 +118,11 @@ function addOperator(operator) {
     if(operator != '=' && operator != 'C') {
         checkCalc = operator
         console.log('opeartore utilizzato', operator)
+        console.log('stato operatore', checkCalc)
         if(firstInput.length == 0) {
             firstInput.push('0')
         }
         input.textContent = firstInput.length > 0 ? firstInput[firstInput.length - 1] + ' ' + operator : '0 ' + operator;
-        console.log(firstInput, ' ', 'questo è ilprimo input nell array firstinput');
     }
 
     if(operator == 'C') {
@@ -153,6 +158,7 @@ function reset() {
      checkCalc = null;
      roots = null;
      square = null;
+     repeat = false;
 }
 ////////////////////////////////////////////////////////////////////
 //TYPES  OF CALCS  FUNCTIONS

@@ -47,7 +47,6 @@ for (let index = 0; index < symbols.length; index++) {
   if(btn.id == '.') {
     btn.classList.add('button-numeric');
     btn.classList.remove('operator');
-    btn.textContent = ',';
   }
   btnContainer.appendChild(btn); 
 }

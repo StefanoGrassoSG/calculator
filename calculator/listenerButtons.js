@@ -61,7 +61,9 @@ calc.addEventListener('click', function() {
         calcsArray.push(secondInput[secondInput.length - 1])
         repeat = true;
         esteticResult.innerHTML = sumArray(calcsArray)
-        input.textContent = (sumArray(calcsArray) - secondInput[secondInput.length - 1]) + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
+        console.log('VEDIAMO', (secondInput[secondInput.length - 1]), typeof secondInput[secondInput.length - 1])
+        console.log('vediamo l altro', sumArray(calcsArray), typeof sumArray(calcsArray))
+        input.textContent = parseFloat((sumArray(calcsArray) - secondInput[secondInput.length - 1]).toFixed(1)) + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
         console.log(calcsArray, 'porco dio')
     }
 
@@ -189,12 +191,12 @@ function reset() {
 function sumArray(arr) {
     let total = 0;
     for (let i = 0; i < arr.length; i++) {
-        let number = parseFloat(arr[i].replace(',', '.'));
+        let number = parseFloat(arr[i]);
         if (!isNaN(number)) {
             total += number;
         }
     }
-    return total.toString().replace('.', ','); 
+    return total.toFixed(1)
 }
 
 

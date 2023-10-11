@@ -60,7 +60,6 @@ calc.addEventListener('click', function() {
     if(calcComplete == true && same == false) {
         calcsArray.push(secondInput[secondInput.length - 1])
         repeat = true;
-        calcsArray.push(calcsArray[0])
         esteticResult.innerHTML = sumArray(calcsArray)
         input.textContent = (sumArray(calcsArray) - secondInput[secondInput.length - 1]) + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
         console.log(calcsArray, 'porco dio')
@@ -72,7 +71,7 @@ calc.addEventListener('click', function() {
         console.log('YOOOOOOOOOOO')
         console.log('stato attuale calcsarray', calcsArray)
         console.log('stato attuale same', same)
-        esteticResult.innerHTML = sumArray(calcsArray)
+        esteticResult.innerHTML =  sumArray(calcsArray)
         input.textContent = firstInput[firstInput.length - 1] + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
         calcComplete = true
        
@@ -190,15 +189,13 @@ function reset() {
 function sumArray(arr) {
     let total = 0;
     for (let i = 0; i < arr.length; i++) {
-        const number = parseFloat(arr[i]); 
+        let number = parseFloat(arr[i].replace(',', '.'));
         if (!isNaN(number)) {
             total += number;
         }
     }
-    return total;
+    return total.toString().replace('.', ','); 
 }
-
-
 
 
 

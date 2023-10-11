@@ -23,7 +23,7 @@ const symbols = [
   '+',
   '+/-',
   0,
-  ',',
+  '.',
   '='
 ]
 
@@ -44,9 +44,10 @@ for (let index = 0; index < symbols.length; index++) {
   if (index === symbols.length - 1) {
     btn.style.backgroundColor = 'SteelBlue'; 
   }
-  if(btn.id == ',') {
+  if(btn.id == '.') {
     btn.classList.add('button-numeric');
     btn.classList.remove('operator');
+    btn.textContent = ',';
   }
   btnContainer.appendChild(btn); 
 }

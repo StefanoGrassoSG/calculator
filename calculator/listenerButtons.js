@@ -46,7 +46,19 @@ calc.addEventListener('click', function() {
         input.textContent = firstInput[firstInput.length - 1] + ' ' + '='
     }
 
+    if(same == true && secondInput.length > 0) {
+        calcsArray[0] = firstInput[0]
+        calcsArray.push(secondInput[secondInput.length - 1])
+        console.log(calcsArray, 'CALCSARRAY')
+        esteticResult.innerHTML = sumArray(calcsArray)
+        input.textContent = (sumArray(calcsArray) - secondInput[secondInput.length - 1]) + ' ' + checkCalc + ' ' + secondInput[secondInput.length - 1] + ' ' + '=';
+        console.log('firstinput', firstInput)
+        console.log('checkvalue', checkCalc)
+        console.log('secondinput', secondInput)
+    }
+
     if(calcComplete == true && same == false) {
+        calcsArray.push(secondInput[secondInput.length - 1])
         repeat = true;
         calcsArray.push(calcsArray[0])
         esteticResult.innerHTML = sumArray(calcsArray)
@@ -54,9 +66,10 @@ calc.addEventListener('click', function() {
         console.log(calcsArray, 'porco dio')
     }
 
-    if(checkCalc == '+' && repeat !=true) {
+    if(checkCalc == '+' && repeat !=true && same != true) {
         calcsArray.push(secondInput[secondInput.length - 1])
         calcsArray.push(firstInput[firstInput.length - 1])
+        console.log('YOOOOOOOOOOO')
         console.log('stato attuale calcsarray', calcsArray)
         console.log('stato attuale same', same)
         esteticResult.innerHTML = sumArray(calcsArray)
@@ -75,17 +88,27 @@ function addDigitNumber(numb) {
         value += numb;
     }
 
-    if(calcComplete && checkCalc != null) {
+    if(calcComplete && checkCalc != null && same != true) {
         input.innerHTML = ''
         calcComplete = false
         reset()
         value = numb;
+        console.log('yeeeeeeeeeeeeeeeeeeeeee')
     }
 
-    if(calcComplete) {
+    if(calcComplete && same != true) {
         calcComplete = false
         reset()
         value = numb;
+        console.log('YOOOOOOOOOOOOOOO')
+    }
+
+    if(same && calcsArray.length > 0) {
+        input.innerHTML = ''
+        calcComplete = false
+        reset()
+        value = numb;
+        console.log('yeeeeeeeeeeeeeeeeeeeeee')
     }
 
     if (firstInput.length > 0 && checkCalc != null) {
@@ -159,6 +182,7 @@ function reset() {
      roots = null;
      square = null;
      repeat = false;
+     same = false;
 }
 ////////////////////////////////////////////////////////////////////
 //TYPES  OF CALCS  FUNCTIONS
